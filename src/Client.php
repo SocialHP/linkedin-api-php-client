@@ -103,6 +103,8 @@ class Client
      * @var bool
      */
     protected $useTokenParam = false;
+    
+    private $last_response;
 
     /**
      * @return bool
@@ -503,7 +505,13 @@ class Client
         } catch (RequestException $requestException) {
             throw Exception::fromRequestException($requestException);
         }
+        $this->last_response = $response;
         return self::responseToArray($response);
+    }
+    
+    public function getLastResponse()
+    {
+    	return $this->last_response;
     }
 
     /**
